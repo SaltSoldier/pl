@@ -1,0 +1,258 @@
+#初めてのPythonメモ
+------------------------------------------------------
+変数(データにつけるラベル)
+
+データ型
+数値
+真偽値 True Faulse
+None
+関数・オブジェクト
+要素が並んだもの
+-文字列：文字が並んだもの
+-リスト：データが並んだもの
+-タプル：データが並んだもの(変更ができない)
+-セット：データが並んだもの(重複が許さない)
+-辞書：キーと値がペア
+
+
+Z[先頭:終端:増減] 
+(ex)
+print (Z[2]) #切り出し
+print (Z[2:5]) #はじまりと終わり指定で連続出力(start:end)(2～5までなので5は含まない)
+print (Z[2:]) #後ろ空欄は最後まで
+print (Z[:5]) #前空欄は最初から
+print (Z[2:-1]) #-をつけると終端から数える(-1は一番最後の文字，-2は最後から2番目…など)
+print(range(3,10,2)) #3~10の間で2つ間隔で出力
+
+
+ソート
+(ex)
+Z.reverse() #要素を逆順にする
+Z.sort() #昇順ソート
+Z.sort()　Z.reverce() #sort&reverseで降順
+
+
+文字列とリストの相互変換
+#文字列　→　リスト
+(ex)
+Z = "2013/12/15"
+print (Z.split("/")) #splitはどの文字で区切るか
+#リスト　→　文字列
+(ex)
+Z = ["a" ,"b" ,"c"]
+print ("-".join(Z)) #どの文字でつなげるか
+
+
+タプル<>リスト
+#リスト　→　タプル
+(ex)
+Y = list(X)
+#タプル　→　リスト
+(ex)
+X = tuple(Y)
+
+
+セット(集合型) - (重複を許さない)
+(ex)
+Z = set([1, 2, 3, 4, 3, 2]) # 重複を許さない
+print(Z)     #[1,2,3,4]となる
+print(a - b) #差集合
+print(a | b) #和集合
+print(a & b) #積集合
+print(a ^ b) #どちらかにしかないもの
+
+
+辞書型 keys(キー), values(値), items(両方)
+(ex)
+sales = {"taguchi":200, "fkoji":300, "dotinstall":500}
+print(sales.keys())     #[taguchi, fkoji, dotinstall]
+print(sales.values())   #[200, 300, 500]
+print(sales.items())    #[taguchi":200, "fkoji":300, "dotinstall":500]
+
+
+in 存在するかどうかTrue or Falseで返ってくる
+(ex)
+sales = {"taguchi":200, "fkoji":300, "dotinstall":500}
+print ("taguchi" in sales) # True or False の出力
+
+
+条件分岐 if
+比較演算子 > < >= <= == !=
+論理演算子 and or not
+(ex.1)
+if score > 60:
+(ex.2)
+if score>60 and score < 80:
+(ex.3)
+if 60 < score < 80:
+(ex.4)
+if score > 60:
+    print ("ok!")
+elif score > 40:
+    print ("soso...")
+else:
+    print ("ng!")
+
+
+for ループ処理
+(ex.1)
+for sale in sales:   #for A in B (Bから順に取り出しAに入れて出力する)
+else:                #ループが終わった後に一回だけしてほしい処理
+    print (sum)
+(ex.2)
+for i in range(10)   #continue(一回だけスキップ)
+    if i == 3:
+        continue
+    print(i)
+(ex.3)
+for i in range(10):  #break(ループを脱出)
+    if i == 3:
+        break
+
+
+for ループ(辞書編)
+(ex.1)
+for key, value in users.items():     #item(すべてのキー，値をたどる)
+    print("key: %s value: %d" % (key, value))
+(ex.2)
+for key in users.keys():
+    print("key: %s" % key)
+(ex.3)
+for value in users.values():
+    print("value: %d" % value)
+
+
+while ループ
+(ex.1)
+while n < 10:
+    if n == 3:
+        n += 1
+        continue
+    print(n)
+    n += 1
+else:
+    print("end")
+(ex.2)
+while n < 10:
+    if n == 3:
+        break
+    print(n)
+    n += 1
+else:
+    print("end")
+
+
+関数,引数
+(ex.1)
+def hello(name, num = 4):           #初期値設定可能(引数を省略した場合初期値を使用)
+    print("hello %s! " % name * num)
+hello("tom", 2)
+hello(num = 2, name = "tom")#引数の順番は指定できる
+hello("steve", 3)
+hello("ryohei")
+(ex.2)
+def hello_return(name, num = 4):    #返り値ありの関数
+    return("hello %s! " % name * num)
+s = hello_return("tom")
+print(s)
+
+
+変数のスコープ,pass
+(ex.1)
+def hello2():
+    pass      #pass(なにも処理しない)
+
+
+リスト　<>　関数 map lambda
+(ex.1)
+def double(x):
+    return x * x
+print(map(double, [2, 5, 8]))               #map(A,B)Bのリストから取り出したものをAの関数に入れて返す
+(ex.2)
+print(map(lambda x: x * x,[2, 5, 8]))       #lambda 無名関数(ちょっとした関数を1文で作成)
+print(list(map(double, [2, 5, 8])))         #map関数を出力するときにはなぜかlist関数が必要
+print(list(map(lambda x: x * x,[2, 5, 8])))
+
+
+オブジェクトの作成(変数と関数をまとめたもの)
+クラス：オブジェクトの設計図
+インスタンス；クラスを実体化したもの
+(ex.1)
+class User(object):
+    def __init__(self, name):#インスタンスの初期化
+        self.name = name
+    def greet(self):#クラス内の関数
+        print ("my name is %s! " % self.name)
+        
+bob = User("Bob")    #インスタンスの初期化
+tom = User("Tom")
+print (bob.name)
+bob.greet()      #クラス内の関数呼び出し
+tom.greet()
+
+
+クラスの継承
+(ex)
+class SuperUser(User):        #クラスの継承
+    def shout(self):          #クラス内の関数
+        print ("%s is SUPER!! " % self.name)
+
+
+モジュール
+(ex)
+import math                    #モジュールの呼び出し　ヘッダファイルインクルードみたいなもの?
+print (math.ceil(5.2))         #6 小数点以下切り上げ
+(ex.2)
+import random
+for i in range(5):
+    print (random.random())    #ランダム変数に関するモジュール
+(ex.3)
+from datetime import  date
+print (date.today())           # 日付に関するモジュール
+ 
+
+------------------------------------------------------
+#Numpy100メモ
+------------------------------------------------------
+
+import numpy as np #Numpyのインポート
+
+np.__version__ #Numpyのバージョン
+
+np.show_config #Numpyの設定出力
+
+np.zeros() #零ベクトル作成
+
+np.arange() #ベクトル作成
+
+Z.reshape(,) #配列形状の変換
+
+np.nonzero() #非0要素のインデックス配列を返す
+
+np.random.random() #ランダムな要素を作成
+
+Z.min() #Zのうち最小値を取得
+
+Z.max() #Zのうち最大値を取得
+
+Z.mean() #Zのうち平均値を取得
+
+np.ones() #全部1の要素のベクトルや配列を作成
+
+np.nan #欠損値，nan
+
+np.inf #無限大，inf
+
+np.diag() #対角項を取得
+
+np.unravel_index(100,(6,7,8)) #6*7*8の行列から100番目の要素を取り出してくる(8*7の行列が6個)
+
+np.tile(A,B) #AをB回取得
+
+np.array() #タプルやリスト，配列の生成
+
+
+
+
+
+
